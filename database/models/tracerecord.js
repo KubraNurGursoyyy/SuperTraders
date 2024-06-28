@@ -16,13 +16,11 @@ module.exports = (sequelize, DataTypes) => {
     TraceRecords.associate = function(models) {
         TraceRecords.belongsTo(models.Shares, {
       foreignKey: 'shareID',
-      as: 'share',
         onDelete: 'CASCADE'
     });
 
         TraceRecords.belongsTo(models.Portfolios, {
       foreignKey: 'portfolioID',
-      as: 'portfolio',
         onDelete: 'CASCADE'
     });
   };

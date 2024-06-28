@@ -13,13 +13,11 @@ module.exports = (sequelize, DataTypes) => {
     QuantityOfSharesInPortfolio.associate = function(models) {
         QuantityOfSharesInPortfolio.belongsTo(models.Shares, {
             foreignKey: 'shareID',
-            as: 'share', // İlişkiye takma ad verildi
             onDelete: 'CASCADE',
         });
 
         QuantityOfSharesInPortfolio.belongsTo(models.Portfolios, {
             foreignKey: 'portfolioID',
-            as: 'portfolio', // İlişkiye takma ad verildi
             onDelete: 'CASCADE',
         });
     };

@@ -16,7 +16,6 @@ module.exports = (sequelize, DataTypes) => {
     Wallets.associate = function(models) {
         Wallets.belongsTo(models.Users, {
       foreignKey: 'userID',
-      as: 'user',
         onDelete: 'CASCADE'
     });
   };

@@ -18,18 +18,15 @@ module.exports = (sequelize, DataTypes) => {
   Portfolios.associate = function(models) {
     Portfolios.belongsTo(models.Users, {
       foreignKey: 'userID',
-      as: 'user',
       onDelete: 'CASCADE'
     });
 
     Portfolios.hasMany(models.QuantityOfSharesInPortfolio, {
       foreignKey: 'portfolioID',
-      as: 'sharesInPortfolio'
     });
 
     Portfolios.hasMany(models.TraceRecords, {
       foreignKey: 'portfolioID',
-      as: 'TraceRecords'
     });
   };
 

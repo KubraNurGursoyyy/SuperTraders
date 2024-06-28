@@ -19,12 +19,10 @@ module.exports = (sequelize, DataTypes) => {
     Shares.associate = function(models) {
         Shares.hasMany(models.QuantityOfSharessInPortfolio, {
             foreignKey: 'ShareID',
-            as: 'portfolios' // Bu ilişkiye 'portfolios' takma adı verildi
         });
 
         Shares.hasMany(models.TraceRecords, { // TraceRecord yerine Transaction kullanılacak
             foreignKey: 'ShareID',
-            as: 'transactions' // Bu ilişkiye 'transactions' takma adı verildi
         });
     };
 
