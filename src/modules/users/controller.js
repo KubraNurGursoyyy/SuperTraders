@@ -46,3 +46,23 @@ const remove = async (req, res) => {
     }
 
 }
+
+const getUsersShares = async (req, res) => {
+    //kişinin portfolyosene ulaşmak. oradan kişideki hisseleri geitmek
+    let _b = req.body;
+    let _user = _b.UserID;
+    //kullanıcıda hangi hisseler var ona bakıyorum
+    const _shareInPortfolio = await Model.Portfolio.findAll({
+        where: { userId: _user },
+        include:{
+            model: Model.QuantityOfSharesInPortfolio,
+            attributes:['shareID']
+        }}
+    );
+    return _shareInPortfolio;
+
+}
+
+module.exports = {
+    getUsersShares
+}
