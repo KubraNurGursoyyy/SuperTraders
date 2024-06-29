@@ -1,6 +1,6 @@
-const { ErrorLog } = require('../models');
+const { ErrorLog } = require('../../database/models/errorlog');
 
-const logError = async (error) => {
+export const logError = async (error) => {
     try {
         await ErrorLog.create({
             message: error.message,
@@ -13,6 +13,3 @@ const logError = async (error) => {
     }
 };
 
-module.exports = {
-    logError
-};

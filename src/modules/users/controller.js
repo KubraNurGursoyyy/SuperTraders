@@ -4,11 +4,13 @@ import {logError} from "../../utils/errorlog";
 import respObject from "../../helper/responseobject";
 const httpStatus = require('http-status');
 
+//normal cretae fonkslarını yaz. sonra usercretae diye ayrı bir fonk ekleyeceksin onda kullanıcı yaratımı yapılacka.
+//o yaratımda da portfolye ve wallet istiyor mu diye sorulacak istemiyorsa yaratılmaycak.
+
 const create = async (req, res) => {
     try {
         let _b = req.body;
-        const created = await models.Portfolio.create(_b);
-
+        const created = await models.User.create(_b);
         return res.status(httpStatus.CREATED).send(respObject(0,'Created successfully.'));
 
     }catch (error) {
@@ -24,7 +26,7 @@ const create = async (req, res) => {
 
 const remove = async (req, res) => {
     try {
-        const  deleted = await models.Portfolio.destroy({
+        const  deleted = await models.User.destroy({
             where:{ "id" : req.params.id },
         });
         if (deleted) {
