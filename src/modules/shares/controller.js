@@ -3,9 +3,6 @@ import {errorHandling} from "../../utils/errorhandling";
 import respObject from "../../helper/responseobject";
 const httpStatus = require('http-status');
 
-//normal cretae fonkslarını yaz. sonra usercretae diye ayrı bir fonk ekleyeceksin onda kullanıcı yaratımı yapılacka.
-//o yaratımda da portfolye ve wallet istiyor mu diye sorulacak istemiyorsa yaratılmaycak.
-
 const create = async (req, res) => {
     try {
         let _b = req.body;
@@ -14,6 +11,23 @@ const create = async (req, res) => {
             return res.status(httpStatus.CREATED).send(respObject(0,'Share created successfully.'));
         else
             return res.status(httpStatus.NOT_ACCEPTABLE).send(respObject(1,'Fail to create User.'));
+
+    }catch (error) {
+        return res.status(httpStatus.INTERNAL_SERVER_ERROR).send(respObject(1,'Failed',errorHandling(error)));
+    }
+}
+
+const update = async (req, res) => {
+    try{
+        let  _b = req.body;
+
+        const updated = await models.Share.update(_b, {
+            where: { id : req.params.id }
+        })
+        if(updated)
+            return res.status(httpStatus.CREATED).send(respObject(1,'Updated successfully.'));
+        else
+            return res.status(httpStatus.NOT_ACCEPTABLE).send(respObject(1,'Fail to update.'));
 
     }catch (error) {
         return res.status(httpStatus.INTERNAL_SERVER_ERROR).send(respObject(1,'Failed',errorHandling(error)));
