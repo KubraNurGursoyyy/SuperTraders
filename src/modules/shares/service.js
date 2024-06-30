@@ -12,35 +12,23 @@ export async function update(_b) {
             attributes: ['id','symbol','price','createdAt','updatedAt'],
         });
 
-
         let newShare = {
             price: Price
         }
 
-
-        console.log(newShare)
-
         if (!share) {
-            console.log(`No share found with ID: ${ShareID}`);
-            return false;
-        }
-
-        if (share.Price === Price) {
-            console.log('No changes detected in Price.');
-            return false;
-        }
-
-        const [affectedRows] = await Model.Shares.update(
-            newShare,
-            { where: { id: ShareID } }
-        );
-
-        if (affectedRows > 0) {
-            console.log(`Successfully updated Price for Share with id ${ShareID}.`);
-            return true;
-        } else {
-            console.log(`Failed update.`);
-            return false;
+            return { success : false, message: "Share not found."};
+        }else if(share.price === Price)
+            return { success : false, message: "There isn't any change in share."};
+        else{
+            const [affectedRows] = await Model.Shares.update(
+                newShare,
+                { where: { id: ShareID } }
+            );
+            if(affectedRows > 0){
+                return { success : true, message: "Update succesfully "};
+            }else
+                return { success : false, message: "There aren't any rows affected."};
         }
 
     }catch (error) {
@@ -50,7 +38,7 @@ export async function update(_b) {
         } catch (logError) {
             console.error('Failed to log error:', logError);
         }
-        return error;
+        return { success : false, message: error};
     }
 }
 
