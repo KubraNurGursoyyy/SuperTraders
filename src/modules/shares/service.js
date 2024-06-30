@@ -1,29 +1,50 @@
 import {logError} from "../../utils/errorlog.js";
+import Model from "../../../database/models/index.js";
+import moment from "moment";
+
+export async function update(_b) {
+    try{
+        const Price = _b.Price;
+        const UpdatedAt = moment(_b.Time, 'hh:mm').toDate();
+
+        return await Model.Shares.update({
+            Price: Price,
+            UpdatedAt: UpdatedAt
+        }, {
+            where: {
+                id: _b.ShareID
+            }
+        });
+
+    }catch (error) {
+        error.code = error.code || 'INTERNAL_SERVER_ERROR';
+
+        try {
+            await logError(error);
+        } catch (logError) {
+            console.error('Failed to log error:', logError);
+        }
+        return error;
+    }
+}
 
 export async function isShareModifiedLastHour (shareID, time) {
     try{
-        const _shareLatestModified  = await db.Shares.findAll({
-            where: { shareId: shareID },
+        const _shareLatestModified  = await Model.Shares.findAll({
+            where: { id: shareID },
             attributes: ['updatedAt'],
-            order: [['updatedAt', 'DESC']]
-
             }
         );
 
-        const updatedAt = _shareLatestModified.updatedAt; // updatedAt değerini alıyoruz
+        let updatedAt = moment(_shareLatestModified[0].dataValues.updatedAt).utc();
+        let requestedTime= moment(time, 'hh:mm');
+        console.log("updatedAt", updatedAt);
+        console.log("requestedTime", requestedTime);
 
-        // "time" parametresini Date nesnesi olarak oluştur
-        const comparisonTime = new Date(time);
+        console.log("isMoreThanOneHours:", moment.duration(requestedTime.diff(updatedAt)).asHours() >= 1);
 
-        comparisonTime.setHours(17, 0, 0, 0);
+        return !moment.duration(requestedTime.diff(updatedAt)).asHours() >= 1
 
-        // "time" değerinden bir saat öncesini hesapla
-        const oneHourAgo = new Date(comparisonTime.getTime() - (1 * 60 * 60 * 1000)); // "time"dan bir saat öncesi
-
-        // updatedAt değerini oneHourAgo ile karşılaştır
-        return updatedAt >= oneHourAgo;
-        //false döndürmesi iyi true kötü
-        return true;
     }catch(error){
         error.code = error.code || 'INTERNAL_SERVER_ERROR';
 
