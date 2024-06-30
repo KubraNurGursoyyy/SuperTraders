@@ -10,11 +10,11 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.UUID
       },
-      Type: {
+      type: {
         type: Sequelize.BOOLEAN,
         allowNull: false
       },
-      Quantity: {
+      quantity: {
         type: Sequelize.INTEGER,
         allowNull: false
       },
@@ -36,12 +36,12 @@ module.exports = {
         },
         onDelete: 'CASCADE'
       },
-      Time: {
+      time: {
         type: Sequelize.DATE,
         allowNull: false,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       },
-      PriceAtTheTimeOfTraceRecord: {
+      priceAtTheTimeOfTraceRecord: {
         type: Sequelize.FLOAT,
         allowNull: false
       },

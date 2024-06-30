@@ -12,7 +12,6 @@ const config = {
         dialectOptions: {
             ssl: {
                 require: true,
-                rejectUnauthorized: false
             }
         }
     },
@@ -26,7 +25,6 @@ const config = {
         dialectOptions: {
             ssl: {
                 require: true,
-                rejectUnauthorized: false
             }
         }
     },

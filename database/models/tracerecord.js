@@ -17,10 +17,10 @@ export default (sequelize) => {
     }
 
     TraceRecords.init({
-        Type: {
+        type: {
             type: DataTypes.BOOLEAN,
         },
-        Quantity: {
+        quantity: {
             type: DataTypes.INTEGER,
         },
         shareID: {
@@ -29,10 +29,10 @@ export default (sequelize) => {
         portfolioID: {
             type: DataTypes.UUID,
         },
-        Time: {
+        time: {
             type: DataTypes.DATE,
         },
-        PriceAtTheTimeOfTraceRecord: {
+        priceAtTheTimeOfTraceRecord: {
             type: DataTypes.FLOAT,
         }
     }, {

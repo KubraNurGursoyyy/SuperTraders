@@ -10,12 +10,12 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.UUID,
       },
-      Symbol: {
+      symbol: {
         type: Sequelize.STRING,
         allowNull: false,
         unique: true
       },
-      Price: {
+      price: {
         type: Sequelize.FLOAT,
         allowNull: false
       },

@@ -20,7 +20,7 @@ export default (sequelize) => {
         shareID: {
             type: DataTypes.UUID,
         },
-        Quantity: {
+        quantity: {
             type: DataTypes.INTEGER,
         },
         portfolioID: {
