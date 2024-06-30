@@ -1,13 +1,10 @@
 'use strict';
 
-import { DataTypes } from 'sequelize';
-import sequelize from '../sequelize.js';
-
-const ErrorLogs = (sequelize) => {
-    const ErrorLog = sequelize.define(
-        'ErrorLog',
-        {
-          message: {
+module.exports = (sequelize, DataTypes) => {
+  const ErrorLogs = sequelize.define(
+      'ErrorLogs',
+      {
+        message: {
           type: DataTypes.TEXT,
           allowNull: false
         },
@@ -31,6 +28,3 @@ const ErrorLogs = (sequelize) => {
 
   return ErrorLogs;
 };
-
-export default ErrorLogs;
-

@@ -1,9 +1,8 @@
-import Shares from "../../../database/models/share.js";
 import {logError} from "../../utils/errorlog.js";
 
 export async function isShareModifiedLastHour (shareID, time) {
     try{
-        const _shareLatestModified  = await Shares.findAll({
+        const _shareLatestModified  = await db.Shares.findAll({
             where: { shareId: shareID },
             attributes: ['updatedAt'],
             order: [['updatedAt', 'DESC']]

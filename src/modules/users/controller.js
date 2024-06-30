@@ -1,7 +1,6 @@
 import {errorHandling} from "../../utils/errorhandling.js";
 import {logError} from "../../utils/errorlog.js";
 import {respObject} from "../../helper/responseobject.js";
-import Users from "../../../database/models/user.js";
 const httpStatus = require('http-status');
 
 //normal cretae fonkslarını yaz. sonra usercretae diye ayrı bir fonk ekleyeceksin onda kullanıcı yaratımı yapılacka.

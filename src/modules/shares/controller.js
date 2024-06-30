@@ -3,7 +3,6 @@ import {errorHandling} from "../../utils/errorhandling.js";
 import {logError} from "../../utils/errorlog.js";
 import {respObject} from "../../helper/responseobject.js";
 import {isShareModifiedLastHour} from "./service.js";
-import Shares from "../../../database/models/share.js";
 import httpStatus from "http-status";
 
 

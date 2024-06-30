@@ -1,4 +1,3 @@
-// index.js (ESM formatı)
 import express from 'express';
 import bodyParser from 'body-parser';
 import { ShareRoutes } from './src/modules/index.js'; // .js uzantısını belirtmek önemli
