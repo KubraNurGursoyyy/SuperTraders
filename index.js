@@ -1,6 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import { ShareRoutes } from './src/modules/index.js'; // .js uzantısını belirtmek önemli
+import { ShareRoutes } from './src/modules/index.js';
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));

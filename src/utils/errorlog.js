@@ -1,7 +1,8 @@
+import models from  "../../database/models/index.js";
 
 export const logError = async (error) => {
     try {
-        await db.ErrorLog.create({
+        await models.ErrorLogs.create({
             message: error.message,
             stack: error.stack,
             code: error.code || null
