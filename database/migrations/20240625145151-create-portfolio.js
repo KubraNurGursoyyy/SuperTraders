@@ -14,10 +14,10 @@ module.exports = {
         type: Sequelize.UUID,
         allowNull: false,
         references: {
-          model: 'Users', // Users tablosuna referans
+          model: 'Users',
           key: 'id'
         },
-        onDelete: 'CASCADE' // User silindiğinde ilgili Portfolio da silinir
+        onDelete: 'CASCADE'
       },
       createdAt: {
         allowNull: false,

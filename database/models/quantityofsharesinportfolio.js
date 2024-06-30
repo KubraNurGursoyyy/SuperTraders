@@ -2,21 +2,21 @@
 import { Model, DataTypes } from 'sequelize';
 
 export default (sequelize) => {
-    class QuantityOfSharesInPortfolio extends Model {
+    class QuantityOfSharesInPortfolios extends Model {
         static associate(models) {
-            QuantityOfSharesInPortfolio.belongsTo(models.Shares, {
+            QuantityOfSharesInPortfolios.belongsTo(models.Shares, {
                 foreignKey: 'shareID',
                 onDelete: 'CASCADE',
             });
 
-            QuantityOfSharesInPortfolio.belongsTo(models.Portfolios, {
+            QuantityOfSharesInPortfolios.belongsTo(models.Portfolios, {
                 foreignKey: 'portfolioID',
                 onDelete: 'CASCADE',
             });
         }
     }
 
-    QuantityOfSharesInPortfolio.init({
+    QuantityOfSharesInPortfolios.init({
         shareID: {
             type: DataTypes.UUID,
         },
@@ -28,8 +28,8 @@ export default (sequelize) => {
         },
     }, {
         sequelize,
-        modelName: 'QuantityOfSharesInPortfolio',
+        modelName: 'QuantityOfSharesInPortfolios',
     });
 
-    return QuantityOfSharesInPortfolio;
+    return QuantityOfSharesInPortfolios;
 };

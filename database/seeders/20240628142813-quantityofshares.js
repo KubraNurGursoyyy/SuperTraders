@@ -3,7 +3,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await queryInterface.bulkInsert('QuantityOfSharesInPortfolio', [
+    await queryInterface.bulkInsert('QuantityOfSharesInPortfolios', [
       { id: '14b441c8-355c-11ef-adab-325096b39f47', portfolioID: 'ec1ab377-eb3c-400f-b62c-98fbb88d0aec', shareID: '65990a56-a3db-4ba2-be36-d866db456a75', Quantity: Math.floor(Math.random() * 9) + 1,  createdAt: new Date(), updatedAt: new Date() },
       { id: '14b4445c-355c-11ef-96b2-325096b39f47', portfolioID: 'a53906fa-d120-487c-8eeb-acd49ee4c1ed', shareID: '15b64a28-355a-11ef-b039-325096b39f47', Quantity: Math.floor(Math.random() * 9) + 1,  createdAt: new Date(), updatedAt: new Date() },
       { id: '14b44506-355c-11ef-b6fb-325096b39f47', portfolioID: 'fd1936a3-1be0-43f0-9324-7b47f82c7a28', shareID: '15b64d0c-355a-11ef-844c-325096b39f47', Quantity: Math.floor(Math.random() * 9) + 1,  createdAt: new Date(), updatedAt: new Date() },
@@ -36,7 +36,7 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-    return queryInterface.bulkDelete('QuantityOfSharesInPortfolio', null, {});
+    return queryInterface.bulkDelete('QuantityOfSharesInPortfolios', null, {});
 
   }
 };

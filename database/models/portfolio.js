@@ -9,7 +9,7 @@ export default (sequelize) => {
         onDelete: 'CASCADE'
       });
 
-      Portfolios.hasMany(models.QuantityOfSharesInPortfolio, {
+      Portfolios.hasMany(models.QuantityOfSharesInPortfolios, {
         foreignKey: 'portfolioID',
       });
 

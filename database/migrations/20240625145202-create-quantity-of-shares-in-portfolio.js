@@ -2,7 +2,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('QuantityOfSharesInPortfolio', {
+    await queryInterface.createTable('QuantityOfSharesInPortfolios', {
       id: {
         allowNull: false,
         defaultValue: Sequelize.fn('gen_random_uuid'),
@@ -46,6 +46,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('QuantityOfSharesInPortfolio');
+    await queryInterface.dropTable('QuantityOfSharesInPortfolios');
   }
 };

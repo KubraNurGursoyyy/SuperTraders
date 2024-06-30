@@ -4,7 +4,7 @@ import { Model, DataTypes } from 'sequelize';
 export default (sequelize) => {
     class Shares extends Model {
         static associate(models) {
-            Shares.hasMany(models.QuantityOfSharesInPortfolio, {
+            Shares.hasMany(models.QuantityOfSharesInPortfolios, {
                 foreignKey: 'shareID',
             });
 
