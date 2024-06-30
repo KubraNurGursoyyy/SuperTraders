@@ -1,6 +1,10 @@
 'use strict';
+import { DataTypes } from 'sequelize';
+import ErrorLogs from "./errorlog.js";
+import sequelize from '../sequelize.js';
 
-module.exports = (sequelize, DataTypes) => {
+const QuantityOfSharesInPortfolio = (sequelize) =>
+    {
     const QuantityOfSharesInPortfolio = sequelize.define(
         'QuantityOfSharesInPortfolio',
         {
@@ -24,3 +28,4 @@ module.exports = (sequelize, DataTypes) => {
 
     return QuantityOfSharesInPortfolio;
 };
+export default QuantityOfSharesInPortfolio;

@@ -1,8 +1,10 @@
-const { ErrorLog } = require('../../database/models/errorlog');
+
+import ErrorLogs from '../../database/models/errorlog.js';
+
 
 export const logError = async (error) => {
     try {
-        await ErrorLog.create({
+        await ErrorLogs.create({
             message: error.message,
             stack: error.stack,
             code: error.code || null

@@ -1,4 +1,4 @@
-function respObject(_code,_message,_data,_itemCount,_fItemCount,resultObject) {
+export function respObject(_code,_message,_data,_itemCount,_fItemCount,resultObject) {
     return {
         code: _code,
         message: _message,
@@ -8,5 +8,3 @@ function respObject(_code,_message,_data,_itemCount,_fItemCount,resultObject) {
         resultObject: resultObject
     };
 }
-
-module.exports=respObject;
