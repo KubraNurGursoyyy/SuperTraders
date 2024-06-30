@@ -1,19 +1,24 @@
 import {logError} from "../../utils/errorlog.js";
+import Model from "../../../database/models/index.js";
 
 
 export async function getUsersShares (userID) {
     try{
-        //kişinin portfolyosene ulaşmak. oradan kişideki hisseleri geitmek
-
         //kullanıcıda hangi hisseler var ona bakıyorum
-        return await db.Portfolio.findAll({
-                where: {userId: userID},
-                include: {
-                    model: db.QuantityOfSharesInPortfolio,
-                    attributes: ['shareID']
-                }
-            }
-        );
+        let _portfolioID = await Model.Portfolios.findAll({
+                where: {userID: userID},
+                attributes: ['id']
+
+            });
+        _portfolioID = _portfolioID[0].dataValues.id
+
+        let _shareIDs = await Model.QuantityOfSharesInPortfolios.findAll({
+            where: {portfolioID: _portfolioID},
+            attributes: ['shareID']
+        });
+
+        return _shareIDs.map(item => item.dataValues.shareID);
+
     }catch(error){
         error.code = error.code || 'INTERNAL_SERVER_ERROR';
 
