@@ -1,34 +1,37 @@
 'use strict';
+const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-  const Portfolios = sequelize.define(
-      'Portfolios',
-      {
-        userID: {
-          type: DataTypes.UUID,
-          allowNull: false,
-          references: {
-            model: 'Users', // Users tablosuna referans
-            key: 'id'
-          }
-        }
+  class Portfolios extends Model {
+    static associate(models) {
+      Portfolios.belongsTo(models.Users, {
+        foreignKey: 'userID',
+        onDelete: 'CASCADE'
+      });
+
+      Portfolios.hasMany(models.QuantityOfSharesInPortfolio, {
+        foreignKey: 'portfolioID',
+      });
+
+      Portfolios.hasMany(models.TraceRecords, {
+        foreignKey: 'portfolioID',
+      });
+    }
+  }
+
+  Portfolios.init({
+    userID: {
+      type: DataTypes.UUID,
+      allowNull: false,
+      references: {
+        model: 'Users',
+        key: 'id'
       }
-  );
-
-  Portfolios.associate = function(models) {
-    Portfolios.belongsTo(models.Users, {
-      foreignKey: 'userID',
-      onDelete: 'CASCADE'
-    });
-
-    Portfolios.hasMany(models.QuantityOfSharesInPortfolio, {
-      foreignKey: 'portfolioID',
-    });
-
-    Portfolios.hasMany(models.TraceRecords, {
-      foreignKey: 'portfolioID',
-    });
-  };
+    }
+  }, {
+    sequelize,
+    modelName: 'Portfolios',
+  });
 
   return Portfolios;
 };

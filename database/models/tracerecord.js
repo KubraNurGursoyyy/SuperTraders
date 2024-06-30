@@ -1,29 +1,44 @@
 'use strict';
+const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-  const TraceRecords = sequelize.define(
-      'TraceRecords',
-      {
-        Type: DataTypes.BOOLEAN,
-        Quantity: DataTypes.INTEGER,
-        shareID: DataTypes.UUID,
-        portfolioID: DataTypes.UUID,
-        Time: DataTypes.DATE,
-        PriceAtTheTimeOfTraceRecord: DataTypes.FLOAT
-      }
-  );
+    class TraceRecords extends Model {
+        static associate(models) {
+            TraceRecords.belongsTo(models.Shares, {
+                foreignKey: 'shareID',
+                onDelete: 'CASCADE'
+            });
 
-    TraceRecords.associate = function(models) {
-        TraceRecords.belongsTo(models.Shares, {
-      foreignKey: 'shareID',
-        onDelete: 'CASCADE'
+            TraceRecords.belongsTo(models.Portfolios, {
+                foreignKey: 'portfolioID',
+                onDelete: 'CASCADE'
+            });
+        }
+    }
+
+    TraceRecords.init({
+        Type: {
+            type: DataTypes.BOOLEAN,
+        },
+        Quantity: {
+            type: DataTypes.INTEGER,
+        },
+        shareID: {
+            type: DataTypes.UUID,
+        },
+        portfolioID: {
+            type: DataTypes.UUID,
+        },
+        Time: {
+            type: DataTypes.DATE,
+        },
+        PriceAtTheTimeOfTraceRecord: {
+            type: DataTypes.FLOAT,
+        }
+    }, {
+        sequelize,
+        modelName: 'TraceRecords',
     });
 
-        TraceRecords.belongsTo(models.Portfolios, {
-      foreignKey: 'portfolioID',
-        onDelete: 'CASCADE'
-    });
-  };
-
-  return TraceRecords;
+    return TraceRecords;
 };

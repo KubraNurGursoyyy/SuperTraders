@@ -1,30 +1,33 @@
 'use strict';
+const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-    const Shares = sequelize.define(
-        'Shares',
-        {
-            Symbol: {
-                type: DataTypes.STRING,
-                allowNull: false,
-                unique: true
-            },
-            Price: {
-                type: DataTypes.FLOAT,
-                allowNull: false
-            }
+    class Shares extends Model {
+        static associate(models) {
+            Shares.hasMany(models.QuantityOfSharesInPortfolio, {
+                foreignKey: 'shareID',
+            });
+
+            Shares.hasMany(models.TraceRecords, {
+                foreignKey: 'shareID',
+            });
         }
-    );
+    }
 
-    Shares.associate = function(models) {
-        Shares.hasMany(models.QuantityOfSharessInPortfolio, {
-            foreignKey: 'ShareID',
-        });
-
-        Shares.hasMany(models.TraceRecords, { // TraceRecord yerine Transaction kullanılacak
-            foreignKey: 'ShareID',
-        });
-    };
+    Shares.init({
+        symbol: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            unique: true
+        },
+        price: {
+            type: DataTypes.FLOAT,
+            allowNull: false
+        }
+    }, {
+        sequelize,
+        modelName: 'Shares',
+    });
 
     return Shares;
 };

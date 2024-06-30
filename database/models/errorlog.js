@@ -1,30 +1,34 @@
 'use strict';
 
+const {
+    Model
+} = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  const ErrorLogs = sequelize.define(
-      'ErrorLogs',
-      {
+    class ErrorLogs extends Model {
+        static associate(models) {
+
+        }
+    }
+    ErrorLogs.init({
         message: {
-          type: DataTypes.TEXT,
-          allowNull: false
+            type: DataTypes.TEXT,
+            allowNull: false
         },
         stack: {
-          type: DataTypes.TEXT,
-          allowNull: true
+            type: DataTypes.TEXT,
+            allowNull: true
         },
         code: {
-          type: DataTypes.STRING,
-          allowNull: true
+            type: DataTypes.STRING,
+            allowNull: true
         },
         createdAt: {
-          type: DataTypes.DATE,
-          defaultValue: DataTypes.NOW
+            type: DataTypes.DATE,
+            defaultValue: DataTypes.NOW
         }
-      }
-  );
-
-  ErrorLogs.associate = function(models) {
-  };
-
-  return ErrorLogs;
+    }, {
+        sequelize,
+        modelName: 'ErrorLogs',
+    });
+    return ErrorLogs;
 };
