@@ -4,21 +4,47 @@ import moment from "moment";
 
 export async function update(_b) {
     try{
-        const Price = _b.Price;
-        const UpdatedAt = moment(_b.Time, 'hh:mm').toDate();
+        const Price = parseFloat(_b.Price);
+        const ShareID = _b.ShareID;
 
-        return await Model.Shares.update({
-            Price: Price,
-            UpdatedAt: UpdatedAt
-        }, {
-            where: {
-                id: _b.ShareID
-            }
+        const share = await Model.Shares.findOne({
+            where: { id: ShareID },
+            attributes: ['id','symbol','price','createdAt','updatedAt'],
         });
+
+
+        let newShare = {
+            price: Price
+        }
+
+
+        console.log(newShare)
+
+        if (!share) {
+            console.log(`No share found with ID: ${ShareID}`);
+            return false;
+        }
+
+        if (share.Price === Price) {
+            console.log('No changes detected in Price.');
+            return false;
+        }
+
+        const [affectedRows] = await Model.Shares.update(
+            newShare,
+            { where: { id: ShareID } }
+        );
+
+        if (affectedRows > 0) {
+            console.log(`Successfully updated Price for Share with id ${ShareID}.`);
+            return true;
+        } else {
+            console.log(`Failed update.`);
+            return false;
+        }
 
     }catch (error) {
         error.code = error.code || 'INTERNAL_SERVER_ERROR';
-
         try {
             await logError(error);
         } catch (logError) {
@@ -36,14 +62,14 @@ export async function isShareModifiedLastHour (shareID, time) {
             }
         );
 
-        let updatedAt = moment(_shareLatestModified[0].dataValues.updatedAt).utc();
-        let requestedTime= moment(time, 'hh:mm');
+        let updatedAt = moment(_shareLatestModified[0].dataValues.updatedAt).local();
+        let requestedTime= moment(time, 'hh:mm').local();
         console.log("updatedAt", updatedAt);
         console.log("requestedTime", requestedTime);
 
-        console.log("isMoreThanOneHours:", moment.duration(requestedTime.diff(updatedAt)).asHours() >= 1);
+        console.log("isMoreThanOneHours:", moment.duration(requestedTime.diff(updatedAt)).asHours());
 
-        return !moment.duration(requestedTime.diff(updatedAt)).asHours() >= 1
+        return !(moment.duration(requestedTime.diff(updatedAt)).asHours() >= 1)
 
     }catch(error){
         error.code = error.code || 'INTERNAL_SERVER_ERROR';

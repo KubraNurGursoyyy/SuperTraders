@@ -61,10 +61,10 @@ export const updateSharePrice = async (req, res) => {
             let isModified = await isShareModifiedLastHour(desiredShare, time);
             if(!isModified){
                 const updated = await update(_b);
-                if(updated){
+                if(updated.success){
                     return res.status(httpStatus.OK).send(respObject(0,'Updated successfully.'));
                 }
-                return res.status(httpStatus.BAD_REQUEST).send(respObject(1,'Update failed.'));
+                return res.status(httpStatus.BAD_REQUEST).send(respObject(1,updated.message));
             }
             return res.status(httpStatus.BAD_REQUEST).send(respObject(1,'Price updated within a hour.'));
         }

@@ -11,9 +11,9 @@ const config = {
         dialect: "postgres",
         dialectOptions: {
             ssl: {
-                require: true,
-            }
-        }
+                rejectUnauthorized: false, // SSL doğrulamasını devre dışı bırak
+            },
+        },
     },
     test: {
         "username": process.env.DB_USERNAME,
