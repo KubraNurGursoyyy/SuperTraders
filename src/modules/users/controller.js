@@ -3,9 +3,6 @@ import {logError} from "../../utils/errorlog.js";
 import {respObject} from "../../helper/responseobject.js";
 const httpStatus = require('http-status');
 
-//normal cretae fonkslarını yaz. sonra usercretae diye ayrı bir fonk ekleyeceksin onda kullanıcı yaratımı yapılacka.
-//o yaratımda da portfolye ve wallet istiyor mu diye sorulacak istemiyorsa yaratılmaycak.
-
 const create = async (req, res) => {
     try {
         let _b = req.body;

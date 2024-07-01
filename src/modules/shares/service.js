@@ -12,7 +12,6 @@ import {
 } from "../quantityofshares/service.js";
 import {addTraceRecord} from "../tracerecords/service.js";
 import models from "../../../database/models/index.js";
-import quantityofsharesinportfolio from "../../../database/models/quantityofsharesinportfolio.js";
 
 export async function sellShareTransaction (UserID,desiredShare,quantity, totalPrice) {
     let transaction;
