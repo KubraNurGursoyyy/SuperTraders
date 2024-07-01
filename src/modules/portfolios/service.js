@@ -10,7 +10,6 @@ export async function isHaveShare (PortfolioID, desiredShare) {
             attributes: ['shareID'],
         });
         const shareIDs = sharesInPortfolio.map(share => share.shareID);
-        console.log(shareIDs, desiredShare)
         return shareIDs.includes(desiredShare);
     }catch(error){
         error.code = error.code || 'INTERNAL_SERVER_ERROR';

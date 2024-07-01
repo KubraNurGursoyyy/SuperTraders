@@ -16,7 +16,6 @@ export async function getUsersShares (userID) {
             where: {portfolioID: _portfolioID},
             attributes: ['shareID']
         });
-        console.log(_shareIDs);
         return _shareIDs.map(item => item.dataValues.shareID);
 
     }catch(error){

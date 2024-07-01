@@ -2,9 +2,59 @@ import {getUsersShares} from "../users/service.js";
 import {errorHandling} from "../../utils/errorhandling.js";
 import {logError} from "../../utils/errorlog.js";
 import {respObject} from "../../helper/responseobject.js";
-import {buyShareTransaction, isShareModifiedLastHour, isUserHaveEnoughBalance, update} from "./service.js";
+import {
+    buyShareTransaction,
+    getSharesSpecificColumn,
+    isShareModifiedLastHour,
+    isUserHaveEnoughBalance, isUserHaveEnoughShare, sellShareTransaction,
+    update
+} from "./service.js";
 import httpStatus from "http-status";
 import Model from  "../../../database/models/index.js";
+
+
+export const sellShare = async (req, res) => {
+    try {
+        //kontrol edilecekler
+        //kullanıcıda satmak istediği hisse var mı ve yeteri mi
+        //fiyat getir
+        //cüzdana para ekle kullanıcıdan hisse düşür 0 olursa hisseyi kullanıcında sil bunlar transaction
+
+        let _b = req.body;
+        let desiredShare = _b.ShareID;
+        let userID = _b.UserID;
+        let quantity = _b.Quantity;
+        let transaction;
+
+        //kullanıcın yeterince hissesi var mı
+        let isHaveEnoughShare = await isUserHaveEnoughShare(userID, desiredShare, quantity);
+        if(!isHaveEnoughShare.success){
+            return res.status(httpStatus.BAD_REQUEST).send(respObject(1,isHaveEnoughShare));
+        }else{
+            //fiyatı getir
+            let totalPrice = await getSharesSpecificColumn(desiredShare, "price");
+
+            totalPrice = Number(totalPrice[0].dataValues.price) * Number(quantity);
+
+            transaction = await sellShareTransaction(userID,desiredShare,quantity, totalPrice);
+            if(!transaction.success){
+                return res.status(httpStatus.BAD_REQUEST).send(respObject(1,"Failed in transaction",transaction));
+            }
+        }
+        return res.status(httpStatus.OK).send(respObject(0,"Share sold successfully.",transaction));
+    } catch (error) {
+        error.code = error.code || 'INTERNAL_SERVER_ERROR';
+
+        try {
+            await logError(error);
+        } catch (logError) {
+            console.error('Failed to log error:', logError);
+        }
+        return res.status(httpStatus.INTERNAL_SERVER_ERROR).send(respObject(1,'Failed',errorHandling(error)));
+    }
+
+}
+
 
 export const buyShare = async (req, res) => {
     try {
