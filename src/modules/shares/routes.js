@@ -1,9 +1,9 @@
-// ./src/modules/shares/routes.js (ESM formatı)
 import { Router } from 'express';
-import { updateSharePrice } from './controller.js';
+import {buyShare, updateSharePrice} from './controller.js';
 
 const ShareRoutes = Router();
 
 ShareRoutes.route('/shares/updatePrice').post(updateSharePrice);
+ShareRoutes.route('/shares/buyShare').post(buyShare);
 
 export { ShareRoutes };

@@ -31,3 +31,10 @@ export async function getUsersShares (userID) {
     }
 
 }
+
+export async function getUserPortfolio(UserID) {
+    return await Model.Users.findOne({
+        where: {id: UserID},
+        attributes: ['portfolioID'],
+    });
+}

@@ -18,7 +18,7 @@ export default (sequelize) => {
 
     TraceRecords.init({
         type: {
-            type: DataTypes.BOOLEAN,
+            type: DataTypes.STRING,
         },
         quantity: {
             type: DataTypes.INTEGER,

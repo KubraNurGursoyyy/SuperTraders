@@ -1,4 +1,4 @@
-import models from "../../../database/models";
+import Model from "../../../database/models";
 import {errorHandling} from "../../utils/errorhandling";
 import {logError} from "../../utils/errorlog";
 import respObject from "../../helper/responseobject";
@@ -7,7 +7,7 @@ const httpStatus = require('http-status');
 const create = async (req, res) => {
     try {
         let _b = req.body;
-        const created = await models.TraceRecord.create(_b);
+        const created = await Model.TraceRecord.create(_b);
 
         return res.status(httpStatus.CREATED).send(respObject(0,'Created successfully.'));
 
@@ -24,7 +24,7 @@ const create = async (req, res) => {
 
 const remove = async (req, res) => {
     try {
-        const  deleted = await models.TraceRecord.destroy({
+        const  deleted = await Model.TraceRecord.destroy({
             where:{ "id" : req.params.id },
         });
         if (deleted) {

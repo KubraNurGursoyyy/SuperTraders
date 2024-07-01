@@ -11,7 +11,7 @@ module.exports = {
         type: Sequelize.UUID
       },
       type: {
-        type: Sequelize.BOOLEAN,
+        type: Sequelize.STRING,
         allowNull: false
       },
       quantity: {
