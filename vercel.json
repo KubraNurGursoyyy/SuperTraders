@@ -2,5 +2,4 @@
   "version": 1,
   "builds": [{"src": "./indexjs", "use": "@vercel/node"}],
   "routes": [{"src":  "/(.*)","dest": "/"  }]
-
 }
