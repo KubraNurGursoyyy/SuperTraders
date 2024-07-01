@@ -118,6 +118,23 @@ export const updateSharePrice = async (req, res) => {
     }
 }
 
+export const getShares = async (req, res) => {
+    try {
+
+        const shares = await Model.Shares.findAll();
+
+        return res.status(httpStatus.BAD_REQUEST).send(respObject(1,'User does not have this share.'));
+    }catch (error) {
+        error.code = error.code || 'INTERNAL_SERVER_ERROR';
+        try {
+            await logError(error);
+        } catch (logError) {
+            console.error('Failed to log error:', logError);
+        }
+        return res.status(httpStatus.INTERNAL_SERVER_ERROR).send(respObject(1,'Failed',errorHandling(error)));
+    }
+}
+
 
 const create = async (req, res) => {
     try {
