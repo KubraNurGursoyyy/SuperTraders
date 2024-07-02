@@ -1,6 +1,4 @@
-import {getUsersWalletAndBalance} from "../wallets/service.js";
 import {logError} from "../../utils/errorlog.js";
-import {getSharesSpecificColumn} from "../shares/service.js";
 import Model from "../../../database/models/index.js";
 
 export async function isHaveShare (PortfolioID, desiredShare) {

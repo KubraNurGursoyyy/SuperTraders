@@ -55,7 +55,6 @@ export const sellShare = async (req, res) => {
 
 }
 
-
 export const buyShare = async (req, res) => {
     try {
         let _b = req.body;

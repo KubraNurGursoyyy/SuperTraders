@@ -8,51 +8,31 @@ export async function getUsersWalletAndBalance(UserID) {
     });
 }
 
-export async function getPayment (UserID, totalPrice, options = {}) {
+export async function getPayment(UserID, totalPrice, options = {}) {
     const transaction = options.transaction;
-
-    try{
-        let userWallet = await getUsersWalletAndBalance(UserID);
-
-        let exBalance = userWallet.dataValues.balance;
-
-
-        const newBalance = Number(exBalance) - Number(totalPrice);
-
-        const [affectedRows] = await Model.Wallets.update(
-            { balance: newBalance},
-            { where: { userID: UserID}, transaction  }
-        );
-        return affectedRows > 0;
-    }catch(error){
-        error.code = error.code || 'INTERNAL_SERVER_ERROR';
-
-        try {
-            await logError(error);
-        } catch (logError) {
-            console.error('Failed to log error:', logError);
-        }
-        return error;
-    }
-
+    const amount = -totalPrice;
+    return await updateWalletBalance(UserID, amount, transaction);
 }
 
-export async function makePayment (UserID, totalPrice, options = {}) {
+export async function makePayment(UserID, totalPrice, options = {}) {
     const transaction = options.transaction;
+    const amount = totalPrice;
+    return await updateWalletBalance(UserID, amount, transaction);
+}
 
-    try{
+async function updateWalletBalance(UserID, amount, transaction) {
+    try {
         let userWallet = await getUsersWalletAndBalance(UserID);
-
         let exBalance = userWallet.dataValues.balance;
-
-        const newBalance = Number(exBalance) + Number(totalPrice);
+        const newBalance = Number(exBalance) + Number(amount);
 
         const [affectedRows] = await Model.Wallets.update(
-            { balance: newBalance},
-            { where: { userID: UserID}, transaction  }
+            { balance: newBalance },
+            { where: { userID: UserID }, transaction }
         );
+
         return affectedRows > 0;
-    }catch(error){
+    } catch(error){
         error.code = error.code || 'INTERNAL_SERVER_ERROR';
 
         try {
