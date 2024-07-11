@@ -11,7 +11,7 @@ const config = {
         dialect: "postgres",
         dialectOptions: {
             ssl: {
-                rejectUnauthorized: false, // SSL doğrulamasını devre dışı bırak
+                rejectUnauthorized: false,
             },
         },
     },
